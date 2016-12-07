@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
+<body>
+
+<div class="ui secondary menu" th:fragment="navigation">
+    <div class="header item">To-Do Application</div>
+    <a class="item" th:href="@{/hello}">
+        Home
+    </a>
+    <a class="item" th:href="@{/register}" sec:authorize="isAnonymous()">
+        Register
+    </a>
+    <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()">
+        Login
+    </a>
+    <a href="javascript:{}" onclick="document.getElementById('logout_form').submit();" class="item" sec:authorize="isAuthenticated()">Logout</a>
+    <div class="right menu">
+        <div class="item">
+            <i class="github link icon big"></i>
+        </div>
+    </div>
+    <!--Since spring security expects a post on logout-->
+    <form th:action="@{/logout}" method="post" id="logout_form"></form>
+</div>
+
+</body>
+</html>
