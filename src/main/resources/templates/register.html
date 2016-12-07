@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration page</title>
+    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='webjars/Semantic-UI/2.2.2/semantic.min.css'/>
+    <script src="webjars/Semantic-UI/2.2.2/semantic.min.js"></script>
+</head>
+<body>
+<h1>Registration page</h1>
+<form class="ui form" th:action="@{/register}" method="post" id="registrationForm">
+    <div class="field">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Username"/>
+    </div>
+    <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Password"/>
+    </div>
+    <div class="field">
+        <label>Password Confirmation</label>
+        <input type="password" name="passwordConfirmation" placeholder="Password Confirmation"/>
+    </div>
+    <button class="ui button" type="submit">Submit</button>
+    <div class="ui error message"></div>
+</form>
+<script>
+    $('#registrationForm')
+            .form({
+                fields: {
+                    username: {
+                        identifier: 'username',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Please enter a username'
+                            }
+                        ]
+                    },
+                    password: {
+                        identifier: 'password',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Please enter a password'
+                            },
+                            {
+                                type: 'minLength[6]',
+                                prompt: 'Your password must be at least {ruleValue} characters'
+                            }
+                        ]
+                    }
+                }
+            });
+</script>
+</body>
+</html>

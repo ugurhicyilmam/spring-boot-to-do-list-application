@@ -38,4 +38,16 @@ public class AuthController {
 
         return "login";
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(RegistrationRequest request) {
+        User user = userService.register(request);
+        System.out.println(user);
+        return "register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register() {
+        return "register";
+    }
 }
