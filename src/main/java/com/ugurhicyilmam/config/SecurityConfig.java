@@ -25,8 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .formLogin().loginPage("/login")
                 .failureUrl("/login?error")
-                .successForwardUrl("/todo")
-                .and().logout().logoutUrl("/login?logout");
+                .successForwardUrl("/todo") // fixme
+                .and().logout().logoutSuccessUrl("/login?logout");
     }
 
     @Bean
