@@ -9,15 +9,24 @@
 </head>
 <body>
 <div class="ui container">
-    <div th:replace="navigation :: navigation"></div>
+    <div th:replace="navigation.inc :: navigation"></div>
     <div class="ui divider">
         <br/>
-        <div class="ui message">
-            <h1 class="ui header">Hello, world!</h1>
-            <br/>
-            <p>This application is a simple to-do-list application created as application project for iyzico.</p>
-            <br/>
-            <p>To check out implementation details, check github repository of project.</p>
+        <div class="ui grid">
+            <div class="ten wide column">
+                <br/>
+                <div class="ui message">
+                    <h1 class="ui header">Hello, world!</h1>
+                    <br/>
+                    <p>This application is a simple to-do-list application created as application project for iyzico.</p>
+                    <br/>
+                    <p>To check out implementation details, check github repository of project.</p>
+                </div>
+            </div>
+            <div class="six wide column">
+                <br />
+                <div th:replace="login :: loginForm"></div>
+            </div>
         </div>
     </div>
 </div>

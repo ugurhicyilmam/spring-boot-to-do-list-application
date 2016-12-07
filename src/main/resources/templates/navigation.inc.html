@@ -4,14 +4,11 @@
 
 <div class="ui secondary menu" th:fragment="navigation">
     <div class="header item">To-Do Application</div>
-    <a class="item" th:href="@{/hello}">
+    <a class="item" th:href="@{/}">
         Home
     </a>
     <a class="item" th:href="@{/register}" sec:authorize="isAnonymous()">
         Register
-    </a>
-    <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()">
-        Login
     </a>
     <a href="javascript:{}" onclick="document.getElementById('logout_form').submit();" class="item" sec:authorize="isAuthenticated()">Logout</a>
     <div class="right menu">
