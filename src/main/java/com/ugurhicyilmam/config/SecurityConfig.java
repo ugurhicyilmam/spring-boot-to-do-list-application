@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .formLogin().loginPage("/login")
                 .failureUrl("/login?error")
-                .successForwardUrl("/todo") // fixme
+                .successForwardUrl("/loginSuccess")
                 .and().logout().logoutSuccessUrl("/login?logout");
     }
 

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
+
 @Controller
 public class AuthController {
 
@@ -44,6 +46,14 @@ public class AuthController {
         User user = userService.register(request);
         System.out.println(user);
         return "register";
+    }
+
+    @RequestMapping(value = "/loginSuccess", method = RequestMethod.POST)
+    public String loginSuccess(Principal principal) {
+        if(principal != null)
+            return "redirect:/";
+        return "redirect:/login";
+
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)

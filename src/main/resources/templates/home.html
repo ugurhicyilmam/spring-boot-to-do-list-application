@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 >
 <head>
     <title>To Do Application</title>
@@ -13,20 +13,27 @@
     <div class="ui divider">
         <br/>
         <div class="ui grid">
-            <div class="ten wide column">
+            <!--Not authenticated-->
+            <div class="ten wide column" sec:authorize="isAnonymous()">
                 <br/>
                 <div class="ui message">
                     <h1 class="ui header">Hello, world!</h1>
                     <br/>
-                    <p>This application is a simple to-do-list application created as application project for iyzico.</p>
+                    <p>This application is a simple to-do-list application created for iyzico.</p>
                     <br/>
                     <p>To check out implementation details, check github repository of project.</p>
                 </div>
             </div>
-            <div class="six wide column">
+            <div class="six wide column" sec:authorize="isAnonymous()">
                 <br />
                 <div th:replace="login :: loginForm"></div>
             </div>
+            <!--Authenticated-->
+            <div class="three wide column" sec:authorize="isAuthenticated()"></div>
+            <div class="ten wide column" sec:authorize="isAuthenticated()">
+                <h1>Welcome <span th:text="${name}"></span></h1>
+            </div>
+            <div class="three wide column" sec:authorize="isAuthenticated()"></div>
         </div>
     </div>
 </div>
