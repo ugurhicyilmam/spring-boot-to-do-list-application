@@ -1,16 +1,57 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
 <head>
-    <title>Login page</title>
+    <title>To Do Application</title>
+    <title>Registration page</title>
+    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='webjars/Semantic-UI/2.2.2/semantic.min.css'/>
+    <script src="webjars/Semantic-UI/2.2.2/semantic.min.js"></script>
 </head>
+
 <body>
-<h1>Login page</h1>
-<p th:if="${loginError}" class="error">Wrong user or password</p>
-<form th:action="@{/login}" method="post">
-    <label for="username">Username</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-    <label for="password">Password</label>:
-    <input type="password" id="password" name="password" /> <br />
-    <input type="submit" value="Log in" />
-</form>
+<div class="ui container">
+    <!--Navigation-->
+    <div th:replace="navigation :: navigation"></div>
+    <div class="ui divider">
+        <!--Content-->
+        <div class="ui grid">
+            <div class="four wide column"></div>
+            <div class="eight wide column">
+                <br/>
+                <br/>
+                <div class="ui negative message" th:if="${loginError}">
+                    <i class="close icon"></i>
+                    <p>Wrong username or password</p>
+                </div>
+                <form class="ui form attached fluid segment" th:action="@{/login}" method="post">
+                    <div class="field">
+                        <label>Username</label>
+                        <input type="text" name="username" placeholder="Username"/>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="Password"/>
+                    </div>
+                    <button class="ui button" type="submit">Submit</button>
+                </form>
+                <div class="ui bottom attached warning message">
+                    <i class="icon help"></i>
+                    Not signed up yet? <a th:href="@{/register}">Register here</a> instead.
+                </div>
+            </div>
+            <div class="four wide column"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.message .close')
+            .on('click', function () {
+                $(this)
+                        .closest('.message')
+                        .transition('fade')
+                ;
+            })
+    ;
+</script>
 </body>
 </html>

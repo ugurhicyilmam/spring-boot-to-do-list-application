@@ -1,29 +1,64 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
 <head>
+    <title>To Do Application</title>
     <title>Registration page</title>
     <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
     <link rel='stylesheet' href='webjars/Semantic-UI/2.2.2/semantic.min.css'/>
     <script src="webjars/Semantic-UI/2.2.2/semantic.min.js"></script>
 </head>
+
 <body>
-<h1>Registration page</h1>
-<form class="ui form" th:action="@{/register}" method="post" id="registrationForm">
-    <div class="field">
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Username"/>
+<div class="ui container">
+    <!--Navigation-->
+    <div th:replace="navigation :: navigation"></div>
+    <div class="ui divider">
+        <!--Content-->
+        <div class="ui grid">
+            <div class="four wide column"></div>
+            <div class="eight wide column">
+                <br/>
+                <br/>
+                <div class="ui negative message" th:if="${loginError}">
+                    <i class="close icon"></i>
+                    <p>Wrong username or password</p>
+                </div>
+                <form class="ui form attached fluid segment" th:action="@{/register}" method="post"
+                      id="registrationForm">
+                    <div class="field">
+                        <label>Username</label>
+                        <input type="text" name="username" placeholder="Username"/>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="Password"/>
+                    </div>
+                    <div class="field">
+                        <label>Password Confirmation</label>
+                        <input type="password" name="passwordConfirmation" placeholder="Password Confirmation"/>
+                    </div>
+                    <button class="ui button" type="submit">Submit</button>
+                    <div class="ui error message"></div>
+                </form>
+                <div class="ui bottom attached warning message">
+                    <i class="icon help"></i>
+                    Already signed up? <a th:href="@{/login}">Login here</a> instead.
+                </div>
+            </div>
+            <div class="four wide column"></div>
+        </div>
     </div>
-    <div class="field">
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Password"/>
-    </div>
-    <div class="field">
-        <label>Password Confirmation</label>
-        <input type="password" name="passwordConfirmation" placeholder="Password Confirmation"/>
-    </div>
-    <button class="ui button" type="submit">Submit</button>
-    <div class="ui error message"></div>
-</form>
+</div>
 <script>
+    $('.message .close')
+            .on('click', function () {
+                $(this)
+                        .closest('.message')
+                        .transition('fade')
+                ;
+            })
+    ;
+
     $('#registrationForm')
             .form({
                 fields: {
@@ -48,9 +83,19 @@
                                 prompt: 'Your password must be at least {ruleValue} characters'
                             }
                         ]
+                    },
+                    passwordConfirmation: {
+                        identifier: 'passwordConfirmation',
+                        rules: [
+                            {
+                                type: 'match[password]',
+                                prompt: 'Password confirmation must match password'
+                            }
+                        ]
                     }
                 }
-            });
+            })
+    ;
 </script>
 </body>
 </html>
