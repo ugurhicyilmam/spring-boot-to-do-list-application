@@ -21,14 +21,14 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/hello")
-    public String hello(Model model) {
-//        model.addAttribute("name", "Ugur");
-        return "index";
+    public String hello() {
+        return "home";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Model model) {
         if (error != null) {
+            System.out.println("error");
             model.addAttribute("loginError", "Invalid username or password");
         }
 
