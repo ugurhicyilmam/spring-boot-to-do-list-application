@@ -8,8 +8,12 @@ import javax.validation.ConstraintValidatorContext;
 
 public class UsernameNotTakenValidator implements ConstraintValidator<UsernameNotTaken, String> {
 
+   private final UserService userService;
+
    @Autowired
-   private UserService userService;
+   public UsernameNotTakenValidator(UserService userService) {
+      this.userService = userService;
+   }
 
    public void initialize(UsernameNotTaken constraint) {
    }
