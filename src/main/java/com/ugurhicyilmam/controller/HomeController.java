@@ -1,10 +1,12 @@
 package com.ugurhicyilmam.controller;
 
+import com.ugurhicyilmam.domain.Todo;
 import com.ugurhicyilmam.domain.User;
 import com.ugurhicyilmam.service.TodoService;
 import com.ugurhicyilmam.service.UserService;
 import com.ugurhicyilmam.transfer.UserTransfer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +28,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Principal principal, Model model, @RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
+    public String index(Principal principal, Model model, @RequestParam(required = false) Integer page) {
         User user = null;
         if (principal != null)
             user = userService.findByUsername(principal.getName());
@@ -36,10 +38,11 @@ public class HomeController {
         model.addAttribute("user", new UserTransfer(user));
 
         page = (page == null) ? 0 : page;
-        limit = (limit == null) ? 10 : limit;
+        int limit = 10;
+        Page<Todo> todoList = todoService.findTodos(page, limit, user);
 
-        model.addAttribute("todoList", todoService.findTodos(page, limit, user));
-        
+        model.addAttribute("todoList", todoList);
+
         return "home";
     }
 

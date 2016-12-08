@@ -16,8 +16,6 @@ public class User implements UserDetails {
     private long id;
     private String username;
     private String password;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Todo> todos;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -22,4 +22,9 @@ public class TodoServiceImpl implements TodoService {
     public Page<Todo> findTodos(int page, int limit, User user) {
         return todoRepository.findByUserOrderByCreatedAtDesc(new PageRequest(page, limit), user);
     }
+
+    @Override
+    public void save(Todo todo) {
+        todoRepository.save(todo);
+    }
 }

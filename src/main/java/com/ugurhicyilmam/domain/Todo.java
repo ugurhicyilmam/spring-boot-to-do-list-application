@@ -1,5 +1,7 @@
 package com.ugurhicyilmam.domain;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,6 +9,7 @@ import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
+@Data
 public class Todo {
 
     @Id
@@ -19,4 +22,8 @@ public class Todo {
     private User user;
 
     private Date createdAt;
+
+    public User getUser() {
+        return null;
+    }
 }
