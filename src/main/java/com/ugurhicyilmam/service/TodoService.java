@@ -7,4 +7,6 @@ import org.springframework.data.domain.Page;
 public interface TodoService {
     Page<Todo> findTodos(int page, int limit, User user);
     void save(Todo todo);
+    Todo createTodo(String content, User user);
+    void deleteTodo(long todoId);
 }

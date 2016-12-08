@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>To Do Application</title>
+    <title>Registration page</title>
+    <script src="../webjars/jquery/3.1.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='../webjars/Semantic-UI/2.2.2/semantic.min.css'/>
+    <script src="../webjars/Semantic-UI/2.2.2/semantic.min.js"></script>
+</head>
+<body>
+<div class="ui container">
+    <div th:replace="navigation.inc :: navigation"></div>
+    <div class="ui divider">
+        <br/>
+        <div class="ui grid">
+            <!--Authenticated-->
+            <div class="three wide column"></div>
+            <div class="ten wide column">
+                <form class="ui form attached fluid segment" th:action="@{/todo}" method="post"
+                      id="todoCreationForm">
+                    <div class="field">
+                        <input type="text" name="todo" placeholder="To-Do"/>
+                    </div>
+                    <button class="ui button" type="submit">Save</button>
+                    <div class="ui error message"></div>
+                </form>
+            </div>
+            <div class="three wide column"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#todoCreationForm')
+            .form({
+                fields: {
+                    todo: {
+                        identifier: 'todo',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'To-Do cannot be empty'
+                            }
+                        ]
+                    }
+                }
+            })
+    ;
+</script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.ugurhicyilmam.controller;
 
+import com.ugurhicyilmam.controller.request.TodoCreationRequest;
 import com.ugurhicyilmam.domain.Todo;
 import com.ugurhicyilmam.domain.User;
 import com.ugurhicyilmam.service.TodoService;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,39 +30,27 @@ public class TodoController {
         this.todoService = todoService;
     }
 
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/todo/create", method = RequestMethod.GET)
+    public String create() {
+        return "todo.create";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/todo/{todoId}/delete", method = RequestMethod.GET)
+    public String delete(@PathVariable long todoId) {
+        todoService.deleteTodo(todoId);
+        return "redirect:/";
+    }
+
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/todo", method = RequestMethod.POST)
-    public String index(Principal principal, Model model) {
+    public String create(Principal principal, TodoCreationRequest request) {
         User user = userService.findByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "todo";
+        todoService.createTodo(request.getTodo(), user);
+        System.out.println("todo created");
+        return "redirect:/";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/todo", method = RequestMethod.GET)
-    public String indexGet(Principal principal, Model model) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "todo";
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/createTestTodo", method = RequestMethod.GET)
-    public void createTestTodo(Principal principal) {
-        if (principal != null) {
-            User user = userService.findByUsername(principal.getName());
-            Todo todo = new Todo();
-            todo.setContent("Todo");
-            todo.setUser(user);
-            todo.setCreatedAt(new Date());
-            todoService.save(todo);
-        }
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/getTestTodo", method = RequestMethod.GET)
-    public Page<Todo> getTestTodo(Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        return todoService.findTodos(0, 10, user);
-    }
 }

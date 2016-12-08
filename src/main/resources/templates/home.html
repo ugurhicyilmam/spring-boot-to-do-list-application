@@ -31,44 +31,66 @@
             <!--Authenticated-->
             <div class="three wide column" sec:authorize="isAuthenticated()"></div>
             <div class="ten wide column" sec:authorize="isAuthenticated()">
-                <h1>
-                    <table class="ui celled table" th:if="${todoList} != null and ${todoList.getTotalElements()}  > 0 ">
-                        <thead>
-                        <tr>
-                            <th>To-do</th>
-                            <th>Date</th>
-                            <th><i class="settings icon"></i></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="todo : ${todoList}">
-                            <td th:text="${todo.content}">Onions</td>
-                            <td th:text="${todo.createdAt}">2.41</td>
-                            <td><i class="remove icon"></i></td>
-                        </tr>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <th colspan="3">
-                                <div class="ui right floated pagination menu">
-                                    <a class="icon item" th:href="@{/(page=${todoList.number} - 1)}" th:unless="${todoList.first}">
-                                        <i class="left chevron icon"></i>
-                                    </a>
-                                    <a class="icon item disabled" th:if="${todoList.first}">
-                                        <i class="left chevron icon"></i>
-                                    </a>
-                                    <a class="icon item" th:href="@{/(page=${todoList.number} + 1)}" th:unless="${todoList.last}">
-                                        <i class="right chevron icon"></i>
-                                    </a>
-                                    <a class="icon item disabled" th:if="${todoList.last}">
-                                        <i class="right chevron icon"></i>
-                                    </a>
+                <table class="ui celled table" th:if="${todoList} != null and ${todoList.getTotalElements()}  > 0 ">
+                    <thead>
+                    <tr>
+                        <th>To-do</th>
+                        <th>Date</th>
+                        <th><i class="settings icon"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="todo : ${todoList}">
+                        <td th:text="${todo.content}">Onions</td>
+                        <td th:text="${todo.createdAt}">2.41</td>
+                        <td><a th:href="@{/todo/{todoId}/delete(todoId=${todo.id})}"><i class="remove icon"></i></a></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="3">
+
+                            <div class="ui grid">
+                                <div class="eight wide column">
+                                    <div class="ui left floated">
+                                        <a th:href="@{/todo/create}" class="ui button">Add To-Do</a>
+                                    </div>
                                 </div>
-                            </th>
-                        </tr>
-                        </tfoot>
-                    </table>
-                </h1>
+                                <div class="eight wide column">
+                                    <div class="ui right floated pagination menu">
+                                        <a class="icon item" th:href="@{/(page=${todoList.number} - 1)}"
+                                           th:unless="${todoList.first}">
+                                            <i class="left chevron icon"></i>
+                                        </a>
+                                        <a class="icon item disabled" th:if="${todoList.first}">
+                                            <i class="left chevron icon"></i>
+                                        </a>
+                                        <a class="icon item" th:href="@{/(page=${todoList.number} + 1)}"
+                                           th:unless="${todoList.last}">
+                                            <i class="right chevron icon"></i>
+                                        </a>
+                                        <a class="icon item disabled" th:if="${todoList.last}">
+                                            <i class="right chevron icon"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                    </tfoot>
+                </table>
+                <div th:if="${todoList} == null or ${todoList.getTotalElements()}  eq 0 " class="ui icon message">
+                    <i class="inbox icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Have you heard about our creating to-dos?
+                        </div>
+                        <br/>
+                        <div class="ui left floated">
+                            <a th:href="@{/todo/create}" class="ui button">Add To-Do</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="three wide column" sec:authorize="isAuthenticated()"></div>
         </div>
