@@ -15,9 +15,12 @@ public class UsernameNotTakenValidator implements ConstraintValidator<UsernameNo
       this.userService = userService;
    }
 
+   @Override
    public void initialize(UsernameNotTaken constraint) {
+      //keep it empty
    }
 
+   @Override
    public boolean isValid(String obj, ConstraintValidatorContext context) {
       return userService.findByUsername(obj) == null;
    }

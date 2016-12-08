@@ -26,28 +26,20 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void save(Todo todo) {
-        todoRepository.save(todo);
-    }
-
-    @Override
     public Todo createTodo(String content, User user) {
         Todo todo = new Todo();
         todo.setContent(content);
         todo.setUser(user);
         todo.setCreatedAt(new Date());
-        save(todo);
+        todoRepository.save(todo);
         return todo;
     }
 
     @Override
     public void deleteTodo(long todoId) {
-        Todo todo = findById(todoId);
+        Todo todo = todoRepository.findOne(todoId);
         if(todo != null)
-            todoRepository.delete(todoId);
-    }
+            todoRepository.delete(todo);
 
-    private Todo findById(long todoId) {
-        return todoRepository.findOne(todoId);
     }
 }
