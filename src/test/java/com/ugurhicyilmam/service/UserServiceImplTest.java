@@ -51,6 +51,7 @@ public class UserServiceImplTest {
         Assert.assertEquals(true, user.isAccountNonExpired());
         Assert.assertEquals(true, user.isAccountNonLocked());
         Assert.assertEquals(true, user.isCredentialsNonExpired());
+        Assert.assertNull(user.getAuthorities());
     }
 
     @Test
