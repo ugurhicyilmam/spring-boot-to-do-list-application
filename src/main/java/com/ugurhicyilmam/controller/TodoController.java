@@ -10,11 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 
@@ -33,7 +35,7 @@ public class TodoController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/todo/create", method = RequestMethod.GET)
-    public String create() {
+    public String create(TodoCreationRequest todoCreationRequest) {
         return "todo.create";
     }
 
@@ -46,9 +48,12 @@ public class TodoController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/todo", method = RequestMethod.POST)
-    public String create(Principal principal, TodoCreationRequest request) {
+    public String create(Principal principal, @Valid TodoCreationRequest todoCreationRequest, BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors()) {
+            return "todo.create";
+        }
         User user = userService.findByUsername(principal.getName());
-        todoService.createTodo(request.getTodo(), user);
+        todoService.createTodo(todoCreationRequest.getTodo(), user);
         System.out.println("todo created");
         return "redirect:/";
     }

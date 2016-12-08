@@ -17,13 +17,15 @@
             <div class="three wide column"></div>
             <div class="ten wide column">
                 <form class="ui form attached fluid segment" th:action="@{/todo}" method="post"
-                      id="todoCreationForm">
+                      th:object="${todoCreationRequest}" id="todoCreationForm">
                     <div class="field">
-                        <input type="text" name="todo" placeholder="To-Do"/>
+                        <input type="text" placeholder="To-Do" th:field="*{todo}" name="todo"/>
                     </div>
                     <button class="ui button" type="submit">Save</button>
+                    <div class="ui red message" th:if="${#fields.hasErrors('todo')}" th:errors="*{todo}">Error</div>
                     <div class="ui error message"></div>
                 </form>
+
             </div>
             <div class="three wide column"></div>
         </div>
