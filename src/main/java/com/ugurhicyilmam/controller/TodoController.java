@@ -1,12 +1,10 @@
 package com.ugurhicyilmam.controller;
 
 import com.ugurhicyilmam.controller.request.TodoCreationRequest;
-import com.ugurhicyilmam.domain.Todo;
 import com.ugurhicyilmam.domain.User;
 import com.ugurhicyilmam.service.TodoService;
 import com.ugurhicyilmam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Date;
 
 @Controller
 public class TodoController {
@@ -54,7 +50,6 @@ public class TodoController {
         }
         User user = userService.findByUsername(principal.getName());
         todoService.createTodo(todoCreationRequest.getTodo(), user);
-        System.out.println("todo created");
         return "redirect:/";
     }
 

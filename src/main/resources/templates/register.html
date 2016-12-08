@@ -24,20 +24,23 @@
                     <p>Wrong username or password</p>
                 </div>
                 <form class="ui form attached fluid segment" th:action="@{/register}" method="post"
-                      id="registrationForm">
+                      id="registrationForm" th:object="${registrationRequest}">
                     <div class="field">
                         <label>Username</label>
-                        <input type="text" name="username" placeholder="Username"/>
+                        <input type="text" name="username" placeholder="Username" th:field="*{username}"/>
                     </div>
                     <div class="field">
                         <label>Password</label>
-                        <input type="password" name="password" placeholder="Password"/>
+                        <input type="password" name="password" placeholder="Password" th:field="*{password}"/>
                     </div>
                     <div class="field">
                         <label>Password Confirmation</label>
-                        <input type="password" name="passwordConfirmation" placeholder="Password Confirmation"/>
+                        <input type="password" name="passwordConfirmation" placeholder="Password Confirmation" th:field="*{passwordConfirmation}"/>
                     </div>
                     <button class="ui button" type="submit">Submit</button>
+                    <div class="ui red message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</div>
+                    <div class="ui red message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
+                    <div class="ui red message" th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}">Error</div>
                     <div class="ui error message"></div>
                 </form>
                 <div class="ui bottom attached warning message">
