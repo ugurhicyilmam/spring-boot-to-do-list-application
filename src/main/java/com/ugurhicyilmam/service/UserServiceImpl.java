@@ -12,19 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    //had to use setter based autowiring instead of constructor based autowiring since it causes circular dependency.
+    //had to use property based autowiring instead of constructor based autowiring since it causes circular dependency.
+    @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public User register(RegistrationRequest request) {
