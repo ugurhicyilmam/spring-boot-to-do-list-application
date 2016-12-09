@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    //had to use property based autowiring instead of constructor based autowiring since it causes circular dependency.
+    // had to use property based autowiring instead of constructor based autowiring since it causes circular
+    // dependency on heroku server. honestly, I don't know why.
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired

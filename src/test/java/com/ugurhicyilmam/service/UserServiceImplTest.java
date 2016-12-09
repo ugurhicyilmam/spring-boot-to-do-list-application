@@ -36,6 +36,9 @@ public class UserServiceImplTest {
     public void setUp() throws Exception {
         when(passwordEncoder.encode("password")).thenReturn("encodedPassword");
 
+        //had to inject dependencies this way, which is not a good practice.
+        //heroku server fails to build application stating there is a circular dependency between
+        //UserService and SecurityConfig, while there is none.
         MockitoAnnotations.initMocks(this);
     }
 
