@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,13 +29,14 @@ public class UserServiceImplTest {
     @MockBean
     private UserRepository userRepository;
 
+    @InjectMocks
     private UserServiceImpl userService;
 
     @Before
     public void setUp() throws Exception {
         when(passwordEncoder.encode("password")).thenReturn("encodedPassword");
 
-        userService = new UserServiceImpl(passwordEncoder, userRepository);
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
