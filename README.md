@@ -9,3 +9,5 @@ Spring Security
 Thymeleaf
 Junit and Mockito for unit and integration tests
 Semantic UI and JQuery for front-end.
+
+Feel free to use, copy, inspect and review the code.
