@@ -6,6 +6,6 @@ import javax.validation.constraints.Size;
 
 @Data
 public class TodoCreationRequest {
-    @Size(max = 255)
+    @Size(min = 1, max = 255)
     private String todo;
 }

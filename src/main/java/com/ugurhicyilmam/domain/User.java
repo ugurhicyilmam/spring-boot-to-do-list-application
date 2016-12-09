@@ -4,11 +4,10 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,9 +19,12 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Todo> todos;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -43,5 +45,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Set<Todo> getTodos() {
+        return null;
     }
 }

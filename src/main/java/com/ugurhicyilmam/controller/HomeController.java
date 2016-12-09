@@ -4,7 +4,6 @@ import com.ugurhicyilmam.domain.Todo;
 import com.ugurhicyilmam.domain.User;
 import com.ugurhicyilmam.service.TodoService;
 import com.ugurhicyilmam.service.UserService;
-import com.ugurhicyilmam.transfer.UserTransfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -34,12 +33,12 @@ public class HomeController {
             user = userService.findByUsername(principal.getName());
         if (user == null)
             return "home";
-        //add user's to-dos
-        model.addAttribute("user", new UserTransfer(user));
 
-        page = (page == null) ? 0 : page;
+        //add user's to-dos
+        int currentPage = (page == null) ? 0 : page;
+        //todo make this parametric
         int limit = 10;
-        Page<Todo> todoList = todoService.findTodos(page, limit, user);
+        Page<Todo> todoList = todoService.findTodos(currentPage, limit, user);
 
         model.addAttribute("todoList", todoList);
 

@@ -23,11 +23,6 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/hello")
-    public String hello() {
-        return "home";
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Model model) {
         if (error != null) {
@@ -59,7 +54,6 @@ public class AuthController {
     public String loginSuccess(Principal principal) {
         if(principal != null)
             return "redirect:/";
-        return "redirect:/login";
-
+        return "redirect:/login?error";
     }
 }

@@ -3,9 +3,8 @@ package com.ugurhicyilmam.controller.request;
 import com.ugurhicyilmam.validation.UsernameNotTaken;
 import lombok.Data;
 
-import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
 @Data
 public class RegistrationRequest {
@@ -14,10 +13,24 @@ public class RegistrationRequest {
     private String username;
     @Size(min = 6, max = 60)
     private String password;
+    @NotNull(message = "Password confirmation must match password")
     private String passwordConfirmation;
 
-    @AssertTrue(message = "Password confirmation must match password")
-    private boolean isPasswordConfirmation() {
-        return Objects.equals(password, passwordConfirmation);
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
+        checkPasswordConfirmation();
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+        checkPasswordConfirmation();
+    }
+
+    private void checkPasswordConfirmation() {
+        if (this.password == null || this.passwordConfirmation == null)
+            return;
+
+        if (!this.password.equals(passwordConfirmation))
+            this.passwordConfirmation = null;
     }
 }
