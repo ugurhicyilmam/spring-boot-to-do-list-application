@@ -29,18 +29,18 @@
                         <label>Username</label>
                         <input type="text" name="username" placeholder="Username" th:field="*{username}"/>
                     </div>
+                    <div class="ui red message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</div>
                     <div class="field">
                         <label>Password</label>
                         <input type="password" name="password" placeholder="Password" th:field="*{password}"/>
                     </div>
+                    <div class="ui red message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
                     <div class="field">
                         <label>Password Confirmation</label>
                         <input type="password" name="passwordConfirmation" placeholder="Password Confirmation" th:field="*{passwordConfirmation}"/>
                     </div>
-                    <button class="ui button" type="submit">Submit</button>
-                    <div class="ui red message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</div>
-                    <div class="ui red message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
                     <div class="ui red message" th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}">Error</div>
+                    <button class="ui button" type="submit">Submit</button>
                     <div class="ui error message"></div>
                 </form>
                 <div class="ui bottom attached warning message">
@@ -62,7 +62,7 @@
             })
     ;
 
-    $('#registrationFoarm')
+    $('#registrationForm')
             .form({
                 fields: {
                     username: {
@@ -71,6 +71,14 @@
                             {
                                 type: 'empty',
                                 prompt: 'Please enter a username'
+                            },
+                            {
+                                type: 'minLength[5]',
+                                prompt: 'Username must be at lest {ruleValue} characters'
+                            },
+                            {
+                                type: 'maxLength[60]',
+                                prompt: 'Username must be at most {ruleValue} characters'
                             }
                         ]
                     },
@@ -84,6 +92,10 @@
                             {
                                 type: 'minLength[6]',
                                 prompt: 'Your password must be at least {ruleValue} characters'
+                            },
+                            {
+                                type: 'maxLength[60]',
+                                prompt: 'Your password must be at most {ruleValue} characters'
                             }
                         ]
                     },
